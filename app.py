@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify
 import google.generativeai as genai
 import os 
 
-from resume_screener import screen_resume_with_llm, DEFAULT_JOB_DESCRIPTION
+from resume_screener import screen_resume_with_llm, DEFAULT_JD
 from sentiment_analyzer import analyze_employee_sentiment
 
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY') 
@@ -69,7 +69,7 @@ def api_screen_resume():
             return jsonify({"error": "Invalid JSON payload."}), 400
 
         resume_text = json_data.get('resume_text')
-        job_description_text = json_data.get('job_description', DEFAULT_JOB_DESCRIPTION)
+        job_description_text = json_data.get('job_description', DEFAULT_JD)
 
         if not resume_text:
             return jsonify({"error": "Missing 'resume_text' in the request."}), 400
